@@ -73,3 +73,7 @@ examples/*/*.nail.*
 /examples/zip/extract
 /examples/dns/server
 /tests/select/test
+build/
+build-*
+*user
+
