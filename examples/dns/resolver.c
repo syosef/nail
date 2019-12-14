@@ -38,7 +38,7 @@ void wait_reply(NailArena *arena,int sockfd,int id){
         char buf[1024];
         size_t siz = recv(sockfd,buf,sizeof buf,0);
         NailStream packet;
-        memstream(&packet,buf,size);
+        memstream(&packet,buf,siz);
         dnspacket *dns  = parse_dnspacket(arena,buf,siz);
         if(!dns){
                 fprintf(stderr,"Received bad reply\n");
@@ -84,7 +84,8 @@ int main(int argc, char**argv)
         NailArena arena;
         size_t len;
         struct sockaddr_in servaddr,recvaddr;
-   NailArena_init(&arena, 4096);
+        jmp_buf err;
+   NailArena_init(&arena, 4096, &err);
    if (argc != 2)
    {
       printf("usage:  resolver <FQDN> \n");
